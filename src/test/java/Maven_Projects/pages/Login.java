@@ -9,6 +9,7 @@ public class Login {
     By inputUserName = By.id("user-name");
     By inputPassword = By.id("password");
     By btnLogin = By.className("btn_action");
+    By title = By.cssSelector("title");
 
     public Login(WebDriver driver){
         this.driver = driver;
@@ -24,6 +25,10 @@ public class Login {
 
     public void clickLogin(){
         driver.findElement(btnLogin).click();
+    }
+
+    public String getLoginTitle(){
+        return driver.getTitle();
     }
 
     public void Login(String strUserName,String strPassword){

@@ -10,6 +10,7 @@ public class Checkout {
     By inputLastName = By.id("last-name");
     By inputZipCode = By.id("postal-code");
     By btnContinue = By.cssSelector("input[class='btn_primary cart_button']");
+    By checkoutInfo = By.id("checkout_info_container");
 
     public Checkout(WebDriver driver){
         this.driver = driver;
@@ -36,5 +37,9 @@ public class Checkout {
         this.setLastName(lastName);
         this.setZipCode(zipCode);
         this.clickBtnContinue();
+    }
+
+    public boolean checkoutInfo(){
+        return driver.findElement(checkoutInfo).isDisplayed();
     }
 }

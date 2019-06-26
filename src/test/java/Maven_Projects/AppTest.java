@@ -3,6 +3,7 @@ package Maven_Projects;
 import static org.junit.Assert.assertTrue;
 
 import Maven_Projects.pages.*;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.BeforeClass;
@@ -29,28 +30,30 @@ public class AppTest
         System.setProperty("webdriver.gecko.driver", "geckodriver");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //driver.get("https://www.saucedemo.com/");
         driver.get(app);
     }
 
     @Test(priority = 1)
-    @Parameters({"user", "pass"})
-    public void login(String user, String pass) {
+    @Parameters({"user", "pass", "title"})
+    public void login(String user, String pass, String title) {
+
         objLogin = new Login(driver);
-        //objLogin.Login("standard_user", "secret_sauce");
+        String titlePage = objLogin.getLoginTitle();
+        Assert.assertEquals(titlePage, title);
         objLogin.Login(user, pass);
-        System.out.println(driver.getTitle());
     }
 
     @Test(priority = 2)
     public void selectItemFromStore(){
         objStore = new Store(driver);
+        Assert.assertTrue(objStore.checkLogo());
         objStore.selectItem();
     }
 
     @Test(priority = 3)
     public void addItem_goToCart(){
         objItemDetails = new ItemDetails(driver);
+        Assert.assertTrue(objItemDetails.priceShown());
         objItemDetails.addItemToCart();
         objItemDetails.goToCart();
     }
@@ -58,6 +61,7 @@ public class AppTest
     @Test(priority = 4)
     public void checkout(){
         objCart = new Cart(driver);
+        Assert.assertTrue(objCart.cartContainer());
         objCart.checkout();
     }
 
@@ -65,12 +69,14 @@ public class AppTest
     @Parameters({"firstName","lastName","zipCode"})
     public void setCheckoutData(String firstName, String lastName, String zipCode){
         objCheckout = new Checkout(driver);
+        Assert.assertTrue(objCheckout.checkoutInfo());
         objCheckout.checkout(firstName,lastName,zipCode);
     }
 
     @Test(priority = 6)
     public void checkoutFinish(){
         objCheckoutFinish = new CheckoutFinish(driver);
+        Assert.assertTrue(objCheckoutFinish.checkoutOverview());
         objCheckoutFinish.checkoutFinish();
     }
 

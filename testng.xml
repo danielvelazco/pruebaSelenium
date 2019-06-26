@@ -3,6 +3,7 @@
 <suite name="All Test Suite">
     <parameter name="app" value="https://www.saucedemo.com/"/>
     <parameter name="user" value="standard_user"/>
+    <parameter name="title" value="Swag Labs"/>
     <parameter name="pass" value="secret_sauce"/>
     <parameter name="firstName" value="daniel"/>
     <parameter name="lastName" value="velazco"/>

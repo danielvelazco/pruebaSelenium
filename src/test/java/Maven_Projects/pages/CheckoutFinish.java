@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 public class CheckoutFinish {
     WebDriver driver;
     By btnFinish = By.cssSelector("a[class='btn_action cart_button']");
+    By checkoutOverview = By.cssSelector("div[class='summary_info_label']");
 
     public CheckoutFinish(WebDriver driver){
         this.driver = driver;
@@ -24,5 +25,9 @@ public class CheckoutFinish {
     public void checkoutFinish(){
         this.scrollDown();
         this.clickBtnFinish();
+    }
+
+    public boolean checkoutOverview(){
+        return driver.findElement(checkoutOverview).isDisplayed();
     }
 }

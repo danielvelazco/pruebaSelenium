@@ -7,6 +7,7 @@ public class Cart {
     WebDriver driver;
 
     By btnCheckout = By.cssSelector("a[class='btn_action checkout_button']");
+    By cartContainer = By.id("cart_contents_container");
 
     public Cart(WebDriver driver){
         this.driver = driver;
@@ -18,5 +19,9 @@ public class Cart {
 
     public void checkout(){
         this.clickBtnCheckout();
+    }
+
+    public boolean cartContainer(){
+        return driver.findElement(cartContainer).isDisplayed();
     }
 }
