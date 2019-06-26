@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <parameter name="app" value="https://www.saucedemo.com/"/>
+    <parameter name="user" value="standard_user"/>
+    <parameter name="pass" value="secret_sauce"/>
+    <parameter name="firstName" value="daniel"/>
+    <parameter name="lastName" value="velazco"/>
+    <parameter name="zipCode" value="4001"/>
+    <test verbose="2" preserve-order="true"
+          name="/home/dvelazco/Documents/q-vision/selenium/src/test/java/Maven_Projects/AppTest.java">
+        <classes>
+            <class name="Maven_Projects.AppTest">
+                <methods>
+                    <include name="login"/>
+                    <include name="selectItemFromStore"/>
+                    <include name="addItem_goToCart"/>
+                    <include name="checkout"/>
+                    <include name="setCheckoutData"/>
+                    <include name="checkoutFinish"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

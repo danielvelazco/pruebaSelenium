@@ -3,17 +3,12 @@ package Maven_Projects;
 import static org.junit.Assert.assertTrue;
 
 import Maven_Projects.pages.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.annotations.AfterClass;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,38 +23,58 @@ public class AppTest
     Checkout objCheckout;
     CheckoutFinish objCheckoutFinish;
 
-    @BeforeTest
-    public void setup(){
+    @BeforeClass
+    @Parameters({"app"})
+    public void setup(String app){
         System.setProperty("webdriver.gecko.driver", "geckodriver");
         driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get("https://www.saucedemo.com/");
+        //driver.get("https://www.saucedemo.com/");
+        driver.get(app);
     }
 
-    @Test
-    public void testLogin(){
+    @Test(priority = 1)
+    @Parameters({"user", "pass"})
+    public void login(String user, String pass) {
         objLogin = new Login(driver);
-        objLogin.Login("standard_user","secret_sauce");
+        //objLogin.Login("standard_user", "secret_sauce");
+        objLogin.Login(user, pass);
         System.out.println(driver.getTitle());
+    }
 
+    @Test(priority = 2)
+    public void selectItemFromStore(){
         objStore = new Store(driver);
         objStore.selectItem();
+    }
 
+    @Test(priority = 3)
+    public void addItem_goToCart(){
         objItemDetails = new ItemDetails(driver);
         objItemDetails.addItemToCart();
         objItemDetails.goToCart();
+    }
 
+    @Test(priority = 4)
+    public void checkout(){
         objCart = new Cart(driver);
         objCart.checkout();
+    }
 
+    @Test(priority = 5)
+    @Parameters({"firstName","lastName","zipCode"})
+    public void setCheckoutData(String firstName, String lastName, String zipCode){
         objCheckout = new Checkout(driver);
-        objCheckout.checkout("daniel","velazco","4001");
+        objCheckout.checkout(firstName,lastName,zipCode);
+    }
 
+    @Test(priority = 6)
+    public void checkoutFinish(){
         objCheckoutFinish = new CheckoutFinish(driver);
         objCheckoutFinish.checkoutFinish();
     }
 
-    @AfterTest
+    @AfterClass
     public void close() {
         driver.quit();
     }
